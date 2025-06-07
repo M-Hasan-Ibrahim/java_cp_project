@@ -1,0 +1,63 @@
+package project_compression.single_thread;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.videoio.VideoCapture;
+import org.opencv.videoio.Videoio;
+import project_compression.FrameExtractor;
+import project_compression.SceneChangeDetector;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main_single {
+    public static void main(String[] args) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+        long start = System.currentTimeMillis();
+
+        String videoPath = "src/project_compression/myVideos/4K_video_40sec_30fps.mp4";
+        VideoCapture capture = new VideoCapture(videoPath);
+        if (!capture.isOpened()) {
+            System.err.println("Error: VideoCapture is not opened from main.");
+            return;
+        }
+
+        double fps = capture.get(Videoio.CAP_PROP_FPS);
+        System.out.println("Video captured successfully");
+        System.out.println("Capture FPS = " + fps);
+
+        FrameExtractor extractor = new FrameExtractor();
+
+        long startTimeExtractor = System.currentTimeMillis();
+        Mat[] frames = extractor.extract(capture);
+        capture.release();
+        long endTimeExtractor = System.currentTimeMillis();
+        System.out.println("Extraction Took: " + (endTimeExtractor - startTimeExtractor) + " ms");
+        System.out.println("Frames extracted: " + frames.length);
+
+        if (frames.length > 1) {
+            SceneChangeDetector detector = new SceneChangeDetector();
+
+            int rows = 12;
+            int cols = 12;
+            double threshold = 25.0;
+
+            long startTimeDetector = System.currentTimeMillis();
+
+            List<Integer> sceneChanges = detector.detect(frames, rows, cols, threshold);
+
+            long endTimeDetector = System.currentTimeMillis();
+            System.out.println("Detection Took: " + (endTimeDetector - startTimeDetector) + " ms");
+
+            System.out.println("Scene changes detected at:");
+            for (int idx : sceneChanges) {
+                System.out.print("→ Frame: " + idx);
+                System.out.println(" / -> Time: " + idx / fps + "s");
+            }
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println("Total Time: " + (end - start) + " ms");
+    }
+}
