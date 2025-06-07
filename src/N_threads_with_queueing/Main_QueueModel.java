@@ -1,10 +1,10 @@
-package project_compression.N_threads_with_queueing;
+package N_threads_with_queueing;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
-import project_compression.SceneChangeDetector;
+import method_classes.SceneChangeDetector;
 
 import java.util.*;
 import java.util.concurrent.*;

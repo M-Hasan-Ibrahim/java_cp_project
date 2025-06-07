@@ -1,4 +1,4 @@
-package project_compression;
+package method_classes;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;

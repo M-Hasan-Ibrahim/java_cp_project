@@ -1,11 +1,11 @@
-package project_compression.N_threads;
+package N_threads;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
-import project_compression.FrameExtractor;
-import project_compression.SceneChangeDetector;
+import method_classes.FrameExtractor;
+import method_classes.SceneChangeDetector;
 
 import java.util.ArrayList;
 import java.util.List;
