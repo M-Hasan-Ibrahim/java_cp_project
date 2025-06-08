@@ -8,6 +8,7 @@ import method_classes.FrameExtractor;
 import method_classes.SceneChangeDetector;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Main_TwoThreads {
@@ -15,7 +16,7 @@ public class Main_TwoThreads {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
         long start = System.currentTimeMillis();
-        String videoPath = "src/project_compression/myVideos/4K_video_40sec_30fps.mp4";
+        String videoPath = "src/myVideos/4K_video_40sec_30fps.mp4";
 
         // Get FPS for timestamp calculation
         VideoCapture capture = new VideoCapture(videoPath);
@@ -73,14 +74,26 @@ public class Main_TwoThreads {
         System.out.println("Detection took: " + (endTimeDetector - startTimeDetector) + " ms");
 
         // Combine results
-        List<Integer> allChanges = new ArrayList<>();
-        allChanges.addAll(result[0]);
-        allChanges.addAll(result[1]);
+        List<Integer> sceneChanges = new ArrayList<>();
+        sceneChanges.addAll(result[0]);
+        sceneChanges.addAll(result[1]);
+
+        Iterator<Integer> frameIterator = sceneChanges.iterator();
+        int previousFrame = frameIterator.next();
+        while (frameIterator.hasNext()) {
+            int currentFrame = frameIterator.next();
+            if(currentFrame - previousFrame < 15){
+                frameIterator.remove();
+            }
+            else{
+                previousFrame = currentFrame;
+            }
+        }
 
         System.out.println("Scene changes detected at:");
-        for (int idx : allChanges) {
-            System.out.print("→ Frame: " + idx);
-            System.out.println(" / -> Time: " + idx/fps + "s");
+        for (int currentFrame : sceneChanges) {
+            System.out.print("→ Frame: " + currentFrame);
+            System.out.println(" / -> Time: " + currentFrame /fps + "s");
         }
 
         long end = System.currentTimeMillis();

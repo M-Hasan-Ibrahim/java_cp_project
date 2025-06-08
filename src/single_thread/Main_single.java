@@ -7,6 +7,7 @@ import org.opencv.videoio.Videoio;
 import method_classes.FrameExtractor;
 import method_classes.SceneChangeDetector;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Main_single {
@@ -15,7 +16,7 @@ public class Main_single {
 
         long start = System.currentTimeMillis();
 
-        String videoPath = "src/project_compression/myVideos/4K_video_40sec_30fps.mp4";
+        String videoPath = "src/myVideos/4K_video_40sec_30fps.mp4";
         VideoCapture capture = new VideoCapture(videoPath);
         if (!capture.isOpened()) {
             System.err.println("Error: VideoCapture is not opened from main.");
@@ -49,10 +50,23 @@ public class Main_single {
             long endTimeDetector = System.currentTimeMillis();
             System.out.println("Detection Took: " + (endTimeDetector - startTimeDetector) + " ms");
 
+
+            Iterator<Integer> frameIterator = sceneChanges.iterator();
+            int previousFrame = frameIterator.next();
+            while (frameIterator.hasNext()) {
+                int currentFrame = frameIterator.next();
+                if(currentFrame - previousFrame < 15){
+                    frameIterator.remove();
+                }
+                else{
+                    previousFrame = currentFrame;
+                }
+            }
+
             System.out.println("Scene changes detected at:");
-            for (int idx : sceneChanges) {
-                System.out.print("→ Frame: " + idx);
-                System.out.println(" / -> Time: " + idx / fps + "s");
+            for (int detectedFrame : sceneChanges) {
+                System.out.print("→ Frame: " + detectedFrame);
+                System.out.println(" / -> Time: " + detectedFrame / fps + "s");
             }
         }
 

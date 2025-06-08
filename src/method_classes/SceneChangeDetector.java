@@ -10,14 +10,6 @@ import java.util.List;
 public class SceneChangeDetector {
     private final FrameSplitter splitter = new FrameSplitter();
 
-    /**
-     * Compares consecutive frames in a Mat[] and returns indices where scene changes occur.
-     * @param frames Array of video frames as Mat
-     * @param rows Number of tile rows for splitting
-     * @param cols Number of tile columns for splitting
-     * @param threshold Threshold of difference to detect a scene change
-     * @return List of frame indices where a scene change is detected
-     */
     public List<Integer> detect(Mat[] frames, int rows, int cols, double threshold) {
         List<Integer> sceneChanges = new ArrayList<>();
 

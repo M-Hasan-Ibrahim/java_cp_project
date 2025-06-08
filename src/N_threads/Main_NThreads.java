@@ -7,9 +7,13 @@ import org.opencv.videoio.Videoio;
 import method_classes.FrameExtractor;
 import method_classes.SceneChangeDetector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Main_NThreads {
 
@@ -24,7 +28,7 @@ public class Main_NThreads {
 
         long start = System.currentTimeMillis();
 
-        String videoPath = "src/project_compression/myVideos/4K_video_40sec_30fps.mp4";
+        String videoPath = "src/myVideos/4K_video_40sec_30fps.mp4";
         VideoCapture capture = new VideoCapture(videoPath);
 
         double fps = capture.get(Videoio.CAP_PROP_FPS);
@@ -68,6 +72,7 @@ public class Main_NThreads {
             final int offset = index * chunkSize;
 
             threads[i] = new Thread(() -> {
+                System.out.println("Thread "+index+" has started");
                 long threadStart = System.currentTimeMillis();
                 List<Integer> temp = detector.detect(chunks[index], rows, cols, threshold);
                 for (int j = 0; j < temp.size(); j++) {
@@ -75,7 +80,7 @@ public class Main_NThreads {
                 }
                 results[index] = temp;
                 long threadEnd = System.currentTimeMillis();
-                System.out.println("Thread "+index+" took: "+(threadEnd-threadStart)+" ms to finish detection");
+                System.out.println("Thread "+index+" took "+(threadEnd-threadStart)+" ms to finish detection");
             });
 
             threads[i].start();
@@ -86,22 +91,68 @@ public class Main_NThreads {
         }
 
         long endTimeDetector = System.currentTimeMillis();
-        System.out.println("Detection took: " + (endTimeDetector - startTimeDetector) + " ms");
+        long durationDetection = endTimeDetector-startTimeDetector;
+        System.out.println("Detection took: " + durationDetection + " ms");
 
-        // Step 4: Combine and print results
-        List<Integer> allChanges = new ArrayList<>();
+        List<Integer> sceneChanges = new ArrayList<>();
         for (List<Integer> list : results) {
-            allChanges.addAll(list);
+            sceneChanges.addAll(list);
         }
 
-        allChanges.sort(Integer::compareTo);
+        sceneChanges.sort(Integer::compareTo);
+
+        Iterator<Integer> frameIterator = sceneChanges.iterator();
+        int previousFrame = frameIterator.next();
+        while (frameIterator.hasNext()) {
+            int currentFrame = frameIterator.next();
+            if(currentFrame - previousFrame < 15){
+                frameIterator.remove();
+            }
+            else{
+                previousFrame = currentFrame;
+            }
+        }
+
         System.out.println("Scene changes detected at:");
-        for (int idx : allChanges) {
-            System.out.print("→ Frame: " + idx);
-            System.out.println(" / -> Time: " + idx/fps + "s");
+        for (int currentFrame : sceneChanges) {
+            System.out.print("→ Frame: " + currentFrame);
+            System.out.println(" / -> Time: " + currentFrame /fps + "s");
         }
 
         long end = System.currentTimeMillis();
-        System.out.println("Total Time: " + (end - start) + " ms");
+        long duration = end-start;
+        System.out.println("Total Time: " + duration + " ms");
+
+        String filePath = "src/Timing_without_queueing.txt";
+        String message = "Trial took " + duration + " ms, and the detection time was " +durationDetection+ " using " + NUMBER_OF_THREADS + " threads";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(message);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error while writing to the file:");
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+            lines.sort(Comparator.comparingInt(line -> {
+                String[] parts = line.trim().split(" ");
+                try {
+                    return Integer.parseInt(parts[parts.length - 2]);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Skipping line due to format issue: " + line);
+                    return Integer.MAX_VALUE;
+                }
+            }));
+            Files.write(Paths.get(filePath), lines);
+        } catch (IOException e) {
+            System.err.println("Error while reading or writing the file:");
+            e.printStackTrace();
+        }
+
+
     }
 }

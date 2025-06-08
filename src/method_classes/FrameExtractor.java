@@ -23,26 +23,12 @@ public class FrameExtractor {
         Mat frame = new Mat();
 
         while (cap.read(frame)) {
-            frameList.add(frame.clone()); // clone() is important to avoid overwriting by OpenCV
+            frameList.add(frame.clone());
         }
 
         cap.release();
 
         return frameList.toArray(new Mat[0]);
-    }
-
-
-    public Mat[] extractRange(VideoCapture cap, int count) {
-        List<Mat> frames = new ArrayList<>();
-        Mat frame = new Mat();
-
-        int read = 0;
-        while (read < count && cap.read(frame)) {
-            frames.add(frame.clone());
-            read++;
-        }
-
-        return frames.toArray(new Mat[0]);
     }
 
 }

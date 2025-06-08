@@ -50,6 +50,62 @@ Scene changes detected at:
 → Frame: 604 / -> Time: 20.1106028
 → Frame: 605 / -> Time: 20.1438985
 Total Time: 115864 ms
+--------------------------------------------------------------
+Extraction Took: 49979 ms
+Frames extracted: 1199
+Detection Took: 125903 ms
+Scene changes detected at:
+→ Frame: 41 / -> Time: 1.3666666666666667s
+→ Frame: 173 / -> Time: 5.766666666666667s
+→ Frame: 276 / -> Time: 9.2s
+→ Frame: 394 / -> Time: 13.133333333333333s
+→ Frame: 514 / -> Time: 17.133333333333333s
+→ Frame: 588 / -> Time: 19.6s
+→ Frame: 691 / -> Time: 23.033333333333335s
+→ Frame: 810 / -> Time: 27.0s
+→ Frame: 971 / -> Time: 32.36666666666667s
+→ Frame: 1087 / -> Time: 36.233333333333334s
+→ Frame: 1093 / -> Time: 36.43333333333333s
+→ Frame: 1094 / -> Time: 36.46666666666667s
+→ Frame: 1095 / -> Time: 36.5s
+→ Frame: 1096 / -> Time: 36.53333333333333s
+→ Frame: 1097 / -> Time: 36.56666666666667s
+→ Frame: 1184 / -> Time: 39.46666666666667s
+Total Time: 176167 ms
+--------------------------------------------------------------
+Extraction Took: 42550 ms
+Frames extracted: 1199
+Detection Took: 123516 ms
+Scene changes detected at:
+→ Frame: 41 / -> Time: 1.3666666666666667s
+→ Frame: 173 / -> Time: 5.766666666666667s
+→ Frame: 276 / -> Time: 9.2s
+→ Frame: 394 / -> Time: 13.133333333333333s
+→ Frame: 514 / -> Time: 17.133333333333333s
+→ Frame: 588 / -> Time: 19.6s
+→ Frame: 691 / -> Time: 23.033333333333335s
+→ Frame: 810 / -> Time: 27.0s
+→ Frame: 971 / -> Time: 32.36666666666667s
+→ Frame: 1087 / -> Time: 36.233333333333334s
+→ Frame: 1184 / -> Time: 39.46666666666667s
+Total Time: 166726 ms
+--------------------------------------------------------------
+Extraction Took: 37522 ms
+Frames extracted: 1199
+Detection Took: 121319 ms
+Scene changes detected at:
+→ Frame: 41 / -> Time: 1.3666666666666667s
+→ Frame: 173 / -> Time: 5.766666666666667s
+→ Frame: 276 / -> Time: 9.2s
+→ Frame: 394 / -> Time: 13.133333333333333s
+→ Frame: 514 / -> Time: 17.133333333333333s
+→ Frame: 588 / -> Time: 19.6s
+→ Frame: 691 / -> Time: 23.033333333333335s
+→ Frame: 810 / -> Time: 27.0s
+→ Frame: 971 / -> Time: 32.36666666666667s
+→ Frame: 1087 / -> Time: 36.233333333333334s
+→ Frame: 1184 / -> Time: 39.46666666666667s
+Total Time: 159083 ms
 ______________________________________________________________
 Two Threads:
 -------------
@@ -103,67 +159,10 @@ Scene changes detected at:
 → Frame: 604 / -> Time: 20.1106028
 → Frame: 605 / -> Time: 20.1438985
 Total Time: 82849 ms
-______________________________________________________________
-Four Threads:
--------------
-Extraction took: 24482 ms
-Total frames extracted: 889
-Detection took: 43838 ms
-Scene changes detected at:
-→ Frame: 15 / -> Time: 0.4994355
-→ Frame: 90 / -> Time: 2.996613
-→ Frame: 171 / -> Time: 5.6935647
-→ Frame: 249 / -> Time: 8.290629299999999
-→ Frame: 291 / -> Time: 9.689048699999999
-→ Frame: 354 / -> Time: 11.7866778
-→ Frame: 400 / -> Time: 13.31828
-→ Frame: 467 / -> Time: 15.549091899999999
-→ Frame: 526 / -> Time: 17.5135382
-→ Frame: 604 / -> Time: 20.1106028
-→ Frame: 605 / -> Time: 20.1438985
-Total Time: 69290 ms
------------------------------------------------------------
-Extraction took: 24962 ms
-Total frames extracted: 889
-Detection took: 43738 ms
-Scene changes detected at:
-→ Frame: 15 / -> Time: 0.4994355
-→ Frame: 90 / -> Time: 2.996613
-→ Frame: 171 / -> Time: 5.6935647
-→ Frame: 249 / -> Time: 8.290629299999999
-→ Frame: 291 / -> Time: 9.689048699999999
-→ Frame: 354 / -> Time: 11.7866778
-→ Frame: 400 / -> Time: 13.31828
-→ Frame: 467 / -> Time: 15.549091899999999
-→ Frame: 526 / -> Time: 17.5135382
-→ Frame: 604 / -> Time: 20.1106028
-→ Frame: 605 / -> Time: 20.1438985
-Total Time: 69754 ms
------------------------------------------------------------
-Extraction took: 27112 ms
-Total frames extracted: 889
-Detection took: 49949 ms
-Scene changes detected at:
-→ Frame: 15 / -> Time: 0.4994355
-→ Frame: 90 / -> Time: 2.996613
-→ Frame: 171 / -> Time: 5.6935647
-→ Frame: 249 / -> Time: 8.290629299999999
-→ Frame: 291 / -> Time: 9.689048699999999
-→ Frame: 354 / -> Time: 11.7866778
-→ Frame: 400 / -> Time: 13.31828
-→ Frame: 467 / -> Time: 15.549091899999999
-→ Frame: 526 / -> Time: 17.5135382
-→ Frame: 604 / -> Time: 20.1106028
-→ Frame: 605 / -> Time: 20.1438985
-Total Time: 77357 ms
-______________________________________________________________
-40sec_30fps without queue output form:
----------------------------------------
-Video captured successfully
-Capture FPS = 30.0
-Extraction took: 38993 ms
+--------------------------------------------------------------
+Extraction took: 40897 ms
 Total frames extracted: 1199
-Detection took: 55005 ms
+Detection took: 79789 ms
 Scene changes detected at:
 → Frame: 41 / -> Time: 1.3666666666666667s
 → Frame: 173 / -> Time: 5.766666666666667s
@@ -175,27 +174,12 @@ Scene changes detected at:
 → Frame: 810 / -> Time: 27.0s
 → Frame: 971 / -> Time: 32.36666666666667s
 → Frame: 1087 / -> Time: 36.233333333333334s
-→ Frame: 1093 / -> Time: 36.43333333333333s
-→ Frame: 1094 / -> Time: 36.46666666666667s
-→ Frame: 1095 / -> Time: 36.5s
-→ Frame: 1096 / -> Time: 36.53333333333333s
-→ Frame: 1097 / -> Time: 36.56666666666667s
 → Frame: 1184 / -> Time: 39.46666666666667s
-Total Time: 94267 ms
---------------------------------------------------------------------
-Video captured successfully
-Capture FPS = 30.0
-Extraction took: 38270 ms
+Total Time: 121088 ms
+--------------------------------------------------------------
+Extraction took: 44189 ms
 Total frames extracted: 1199
-Thread 7 took: 18991 ms to finish detection
-Thread 6 took: 32940 ms to finish detection
-Thread 4 took: 36483 ms to finish detection
-Thread 3 took: 37039 ms to finish detection
-Thread 5 took: 38012 ms to finish detection
-Thread 2 took: 43304 ms to finish detection
-Thread 0 took: 47211 ms to finish detection
-Thread 1 took: 47995 ms to finish detection
-Detection took: 48002 ms
+Detection took: 78928 ms
 Scene changes detected at:
 → Frame: 41 / -> Time: 1.3666666666666667s
 → Frame: 173 / -> Time: 5.766666666666667s
@@ -207,50 +191,6 @@ Scene changes detected at:
 → Frame: 810 / -> Time: 27.0s
 → Frame: 971 / -> Time: 32.36666666666667s
 → Frame: 1087 / -> Time: 36.233333333333334s
-→ Frame: 1093 / -> Time: 36.43333333333333s
-→ Frame: 1094 / -> Time: 36.46666666666667s
-→ Frame: 1095 / -> Time: 36.5s
-→ Frame: 1096 / -> Time: 36.53333333333333s
-→ Frame: 1097 / -> Time: 36.56666666666667s
 → Frame: 1184 / -> Time: 39.46666666666667s
-Total Time: 86644 ms
---------------------------------------------------------------------
-40sec_30fps with queue output form:
-------------------------------------
-Video opened, FPS = 30.0
-Producer 0 finished in 65517 ms
-Producer 1 finished in 65517 ms
-Producer 0 finished in 65517 ms
-Producer 2 finished in 65529 ms
-Producer 3 finished in 65530 ms
-Producer 3 finished in 65517 ms
-Producer 1 finished in 65530 ms
-Producer 2 finished in 65517 ms
-Scene changes at:
-→ Frame: 41 / -> Time: 1.3666666666666667s
-→ Frame: 173 / -> Time: 5.766666666666667s
-→ Frame: 276 / -> Time: 9.2s
-→ Frame: 394 / -> Time: 13.133333333333333s
-→ Frame: 514 / -> Time: 17.133333333333333s
-→ Frame: 588 / -> Time: 19.6s
-→ Frame: 691 / -> Time: 23.033333333333335s
-→ Frame: 810 / -> Time: 27.0s
-→ Frame: 971 / -> Time: 32.36666666666667s
-→ Frame: 1087 / -> Time: 36.233333333333334s
-→ Frame: 1093 / -> Time: 36.43333333333333s
-→ Frame: 1094 / -> Time: 36.46666666666667s
-→ Frame: 1095 / -> Time: 36.5s
-→ Frame: 1096 / -> Time: 36.53333333333333s
-→ Frame: 1097 / -> Time: 36.56666666666667s
-→ Frame: 1184 / -> Time: 39.46666666666667s
-Total Time: 66517 ms
-
-
-
-
-
-
-
-
-
-
+Total Time: 123465 ms
+______________________________________________________________

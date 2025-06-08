@@ -1,0 +1,2 @@
+Trial took 88074 ms using 4 threads
+Trial took 90410 ms using 12 threads
