@@ -36,9 +36,9 @@ public class SceneChangeDetector {
         double totalDifference = 0;
 
         for (int i = 0; i < tiles1.size(); i++) {
-            Mat diff = new Mat();
-            Core.absdiff(tiles1.get(i), tiles2.get(i), diff);
-            Scalar sum = Core.sumElems(diff);
+            Mat difference = new Mat();
+            Core.absdiff(tiles1.get(i), tiles2.get(i), difference);
+            Scalar sum = Core.sumElems(difference);
             totalDifference += sum.val[0] + sum.val[1] + sum.val[2];  // B + G + R
         }
 

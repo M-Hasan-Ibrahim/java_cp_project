@@ -1,4 +1,25 @@
+
+src/VideoGUI.java
+src/TimingGraph.java
+src/BIG_MAIN.java
+
+src/Thread notes
+src/Timing_single_and_2_threads.txt
+src/Timing_with_queueing_1min_30fps.txt
+src/Timing_with_queueing_40sec_30fps.txt
+src/Timing_with_queueing_HD_1min_30fps.txt
+src/Timing_without_queueing.txt
+
 src/myVideos
+src/graphs
+src/N_threads_with_queueing
+src/two_threads
+src/four_threads
+
+src/producer_consumer_model/graphs
+src/producer_consumer_model/results
+
+
 
 ### IntelliJ IDEA ###
 out/

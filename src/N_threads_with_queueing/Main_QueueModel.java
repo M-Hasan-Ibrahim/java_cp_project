@@ -18,7 +18,7 @@ public class Main_QueueModel {
     static{
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
-    private static final int QUEUE_CAPACITY = 100;
+    private static final int QUEUE_CAPACITY = 69;
     private static final Mat POISON_PILL = new Mat(); // empty mat as poison pill
 
     public static void Runner(int Threads_Count, String videoPath) throws InterruptedException {
@@ -35,7 +35,7 @@ public class Main_QueueModel {
 
         VideoCapture capture = new VideoCapture(videoPath);
         if(!capture.isOpened()){
-            System.err.println("Video Capture Coudn't Start...");
+            System.err.println("Video Capture Couldn't Start...");
             return;
         }
         double totalFrames = capture.get(Videoio.CAP_PROP_FRAME_COUNT);
@@ -62,7 +62,7 @@ public class Main_QueueModel {
             final int index = i;
             final BlockingQueue<Mat> queue = queues[i];
 
-            producers.submit(() -> {
+            producers.submit(() -> { // extract + write in the queue
                 long startTimeProducer = System.currentTimeMillis();
 
                 int startFrame = index * framesPerProducer;
@@ -96,7 +96,7 @@ public class Main_QueueModel {
                 System.out.println("Producer " + index + " finished in " + (endTimeProducer - startTimeProducer) + " ms");
             });
 
-            consumers.submit(() -> {
+            consumers.submit(() -> { // read from queue + detect changes b/w frames
                 System.out.println("Consumer "+index+" started");
                 long startTimeConsumer = System.currentTimeMillis();
 
@@ -109,7 +109,7 @@ public class Main_QueueModel {
                         if (current == POISON_PILL) break;
 
                         if (prev != null) {
-                            boolean changed = detector.isSceneChange(prev, current, 12, 12, 25.0);
+                            boolean changed = detector.isSceneChange(prev, current, 16, 16, 25.0);
                             if (changed) {
                                 sceneChanges.add(indexInVideo+(index*framesPerProducer));
                             }
@@ -131,7 +131,7 @@ public class Main_QueueModel {
 
         producers.awaitTermination(1, TimeUnit.HOURS);
         consumers.awaitTermination(1, TimeUnit.HOURS);
-        capture.release();
+        //capture.release();
 
         sceneChanges.sort(Integer::compareTo);
 
@@ -158,7 +158,7 @@ public class Main_QueueModel {
         long duration = end-start;
         System.out.println("Total Time: " + duration + " ms");
 
-        String filePath = "src/Timing_with_queueing_40sec_30fps.txt";
+        String filePath = "src/Timing_with_queueing_HD_1min_30fps.txt";
         String message = "Trial took " + duration + " ms using " +NUMBER_OF_THREADS+ " threads";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -194,7 +194,7 @@ public class Main_QueueModel {
 //        int NUMBER_OF_THREADS = scanner.nextInt();
 //        int PRODUCER_CONSUMER_PAIRS = NUMBER_OF_THREADS/2;
 
-        String videoPath = "src/myVideos/4K_video_40sec_30fps.mp4";
+        String videoPath = "src/myVideos/HD_video_1min_30fps.mp4";
 
         Runner(4, videoPath);
     }

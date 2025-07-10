@@ -74,11 +74,13 @@ public class Main_NThreads {
             threads[i] = new Thread(() -> {
                 System.out.println("Thread "+index+" has started");
                 long threadStart = System.currentTimeMillis();
+
                 List<Integer> temp = detector.detect(chunks[index], rows, cols, threshold);
                 for (int j = 0; j < temp.size(); j++) {
                     temp.set(j, temp.get(j) + offset);  // Adjust index
                 }
                 results[index] = temp;
+
                 long threadEnd = System.currentTimeMillis();
                 System.out.println("Thread "+index+" took "+(threadEnd-threadStart)+" ms to finish detection");
             });

@@ -14,6 +14,8 @@ Trial took 55299 ms using 6 threads
 Trial took 61311 ms using 6 threads
 Trial took 76502 ms using 6 threads
 Trial took 50327 ms using 8 threads
+Trial took 92168 ms using 8 threads
+Trial took 99052 ms using 8 threads
 Trial took 60075 ms using 10 threads
 Trial took 60667 ms using 12 threads
 Trial took 77054 ms using 24 threads

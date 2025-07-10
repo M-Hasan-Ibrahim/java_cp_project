@@ -8,6 +8,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
@@ -25,9 +27,9 @@ public class TimingGraph {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" ");
                 int threads = Integer.parseInt(parts[parts.length - 2]);
-                int detectionTime = Integer.parseInt(parts[parts.length - 4]);
+                int trialTime = Integer.parseInt(parts[parts.length - 5]);
 
-                map.computeIfAbsent(threads, k -> new ArrayList<>()).add(detectionTime);
+                map.computeIfAbsent(threads, k -> new ArrayList<>()).add(trialTime);
             }
 
         } catch (IOException e) {
@@ -55,22 +57,26 @@ public class TimingGraph {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         for (Map.Entry<Integer, ?> entry : map.entrySet()) {
-            dataset.addValue(((Number) entry.getValue()).doubleValue(), "Detection Time", entry.getKey());
+            dataset.addValue(((Number) entry.getValue()).doubleValue(), "Trial Time", entry.getKey());
         }
 
         JFreeChart chart = ChartFactory.createLineChart(
                 title,
                 "Number of Threads",
-                "Detection Time (ms)",
+                "Trial Time (ms)",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false
         );
 
+        CategoryPlot plot = chart.getCategoryPlot();
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        rangeAxis.setRange(50000, 60000);
+
         // Save to 'graphs' directory
         try {
-            new File("src/graphs").mkdirs(); // Create directory if not exist
-            ChartUtils.saveChartAsPNG(new File("src/graphs/" + title.replaceAll("[^a-zA-Z0-9]", "_") + ".png"), chart, 800, 600);
+            new File("src/producer_consumer_model/graphs").mkdirs(); // Create directory if not exist
+            ChartUtils.saveChartAsPNG(new File("src/producer_consumer_model/graphs/" + title.replaceAll("[^a-zA-Z0-9]", "_") + ".png"), chart, 800, 600);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +91,7 @@ public class TimingGraph {
 
 
     public static void plotScatterPoints(List<Map.Entry<Integer, Double>> points, String title) {
-        XYSeries series = new XYSeries("Detection Time");
+        XYSeries series = new XYSeries("Trial Time");
 
         for (Map.Entry<Integer, Double> point : points) {
             series.add(point.getKey(), point.getValue());
@@ -96,15 +102,15 @@ public class TimingGraph {
         JFreeChart chart = ChartFactory.createScatterPlot(
                 title,
                 "Number of Threads",
-                "Detection Time (ms)",
+                "Trial Time (ms)",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false
         );
 
         try {
-            new File("src/graphs").mkdirs();
-            ChartUtils.saveChartAsPNG(new File("src/graphs/" + title.replaceAll("[^a-zA-Z0-9]", "_") + ".png"), chart, 800, 600);
+            new File("src/producer_consumer_model/graphs").mkdirs();
+            ChartUtils.saveChartAsPNG(new File("src/producer_consumer_model/graphs/" + title.replaceAll("[^a-zA-Z0-9]", "_") + ".png"), chart, 800, 600);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,7 +125,7 @@ public class TimingGraph {
 
 
     public static void main(String[] args){
-        String filePath = "src/Timing_without_queueing.txt";
+        String filePath = "src/producer_consumer_model/results/PCM_40sec_30fps.txt";
 
         Map<Integer, List<Integer>> originalMap = getMap(filePath);
         Map<Integer, Double> avgMap = averageMap(originalMap);
@@ -130,9 +136,9 @@ public class TimingGraph {
                 scatterPoints.add(new AbstractMap.SimpleEntry<>(threadCount, time.doubleValue()));            }
         });
 
-        plotScatterPoints(scatterPoints, "All Detection Times for 40sec_30fps without queueing");
+        plotScatterPoints(scatterPoints, "All Trial Times for PCM_4k_40sec_30fps");
 
         // Line chart with average values
-        plotMap(avgMap, "Average Detection Times for 40sec_30fps without queueing");
+        plotMap(avgMap, "Average Trial Times for PCM_4k_40sec_30fps");
     }
 }
