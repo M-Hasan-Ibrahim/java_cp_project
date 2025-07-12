@@ -18,10 +18,10 @@ import static producer_consumer_model.SceneChange.detectSceneChanges;
 
 
 public class Main_Prod_Cons {
-
-    static {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
+// for docker
+//    static {
+//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//    }
 
     private static void writeInFile(String filePath, String message){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))){
